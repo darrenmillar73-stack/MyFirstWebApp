@@ -1,25 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Greek Recipes</title>
     <link rel="stylesheet" href="website.css">
 </head>
 
 <body style="background-color: whitesmoke; font-family: Arial, sans-serif;">
 
-    <h1 style="text-align: center; padding: 10px; color: white; background-color: yellow; border: black 2px solid;">
-        Greek Recipes</h1>
+    <h1 style="text-align: center; padding: 10px; color: black; background-color: yellow; border: black 2px solid;">
+        Greek Recipes
+    </h1>
 
-    <ul>
-        <li><a href="index.htm">Home</a></li>
-        <li><a href="italian.html">Italian</a></li>
-        <li><a href="indian.html">Indian</a></li>
-    </ul>
-
+    <nav aria-label="Recipe categories">
+        <ul>
+            <li><a href="index.htm">Home</a></li>
+            <li><a href="italian.html">Italian</a></li>
+            <li><a href="indian.html">Indian</a></li>
+        </ul>
+    </nav>
     <!-- <div class="image_area">
         <img src="stifado.png" alt="Greek Food">
     </div> -->
 
-    <div class="imageContainer" style="background-image: url(stifado.png);">
-        <object 
-            style="width: 100%; height: 100%; filter: invert(30%) sepia(100%) saturate(5000%) hue-rotate(210deg) brightness(130%) contrast(100%);"
-            data="stifado.md" type="text/plain"></object>
+    <div class="recipe-container">
+
+        <div class="recipe-banner">
+            <img src="stifado.png" alt="Stifado">
+        </div>
+
+        <div class="recipe-text">
+            <object data="stifado.txt" type="text/plain">
+            </object>
+        </div>
+
     </div>
+
+</body>
+
+</html>
