@@ -15,6 +15,7 @@
             <li><a href="greek.html">Greek</a></li>
             <li><a href="italian.html">Italian</a></li>
             <li><a href="indian.html">Indian</a></li>
+            <li><a href="cajun.html">Cajun</a></li>
         </ul>
     </nav>
 
@@ -58,9 +59,26 @@
             <label for="comments">Why should I try it?</label>
             <textarea id="comments" name="comments" rows="4"></textarea>
 
-            <button type="submit">Send Suggestion</button>
+            <button type="button" onclick="submitRecipe()">Send Suggestion</button>
+            <p id="form-message"></p>
         </form>
     </section>
+
+    <script>
+        function submitRecipe() {
+            const recipe = document.getElementById("recipe").value;
+            const cuisine = document.getElementById("cuisine").value;
+            const message = document.getElementById("form-message");
+
+            if (recipe === "" || cuisine === "") {
+                message.textContent = "Please enter a recipe name and choose a cuisine.";
+            } else {
+                message.textContent =
+                    "Thank you! You've suggested " + recipe +
+                    " as a " + cuisine + " recipe.";
+            }
+        }
+    </script>
 
     <footer>
         <p
