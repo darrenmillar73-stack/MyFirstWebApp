@@ -56,29 +56,84 @@
                 <option value="other">Other</option>
             </select>
 
+            <div id="other-cuisine-container" style="display: none;">
+                <label for="other-cuisine">Please specify cuisine:</label>
+                <input type="text" id="other-cuisine" name="other-cuisine">
+            </div>
+
             <label for="comments">Why should I try it?</label>
             <textarea id="comments" name="comments" rows="4"></textarea>
 
             <button type="button" onclick="submitRecipe()">Send Suggestion</button>
             <p id="form-message"></p>
+            <button type="reset" id="reset">Reset</button>
+            <p style="font-size: 0.8em; color: gray;">Note: This form does not actually submit data anywhere.</p>
+
+
         </form>
     </section>
 
     <script>
         function submitRecipe() {
             const recipe = document.getElementById("recipe").value;
-            const cuisine = document.getElementById("cuisine").value;
+            let cuisine = document.getElementById("cuisine").value;
             const message = document.getElementById("form-message");
 
-            if (recipe === "" || cuisine === "") {
-                message.textContent = "Please enter a recipe name and choose a cuisine.";
-            } else {
+            if (cuisine === "other") {
+                cuisine = document.getElementById("other-cuisine").value;
+            }
+            const x = validateForm();
+
+            if (x === true) {
                 message.textContent =
                     "Thank you! You've suggested " + recipe +
-                    " as a " + cuisine + " recipe.";
+                    " for the " + cuisine + " section.";
             }
         }
+
+
+        const cuisineSelect = document.getElementById("cuisine");
+        const otherCuisineContainer = document.getElementById("other-cuisine-container");
+
+        cuisineSelect.addEventListener("change", function () {
+            if (this.value === "other") {
+                otherCuisineContainer.style.display = "block";
+            } else {
+                otherCuisineContainer.style.display = "none";
+            }
+        });
+
+        function validateForm() {
+            const name = document.getElementById("name").value;
+            const recipe = document.getElementById("recipe").value;
+            const cuisine = document.getElementById("cuisine").value;
+            const comments = document.getElementById("comments").value;
+
+            if (name.trim() === "" || recipe.trim() === "" ||
+                cuisine === "" || comments.trim() === "") {
+                alert("Please fill in all fields.");
+                return false;
+            }
+
+            if (cuisine === "other") {
+                const otherCuisine = document.getElementById("other-cuisine").value;
+
+                if (otherCuisine.trim() === "") {
+                    alert("Please specify the cuisine.");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
+        const reset = document.getElementById("reset");
+        reset.addEventListener("click", function () {
+            document.getElementById("form-message").textContent = "";
+            document.getElementById("other-cuisine-container").style.display = "none";
+        });
     </script>
+
 
     <footer>
         <p
