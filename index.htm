@@ -36,7 +36,26 @@
         </p>
     </section>
 
-    <!-- <a href="https://pinchofnom.com/"> Pinch of Nom</a> -->
+    <section class="recipe-search">
+        <h2>Find a Recipe</h2>
+
+        <label for="recipe-search">Search for a recipe:</label>
+        <input type="text" id="recipe-search" placeholder="e.g. Chicken, Pasta, Curry">
+
+        <button type="button" id="search-button"
+            onclick="document.getElementById('search-results').style.display = 'block'">
+            Search
+        </button>
+
+        <p id="search-message"></p>
+
+        <div class="search-results">
+            <select name="Recipes" id="search-results" size="5" style="display: none;" onchange="selectRecipe()">
+            </select>
+        </div>
+
+
+    </section>
 
     <section class="suggest-recipe">
         <h2>Suggest a Recipe</h2>
@@ -126,12 +145,50 @@
 
             return true;
         }
-        
+
         const reset = document.getElementById("reset");
         reset.addEventListener("click", function () {
             document.getElementById("form-message").textContent = "";
             document.getElementById("other-cuisine-container").style.display = "none";
         });
+
+        function searchRecipes() {
+            const search = document.getElementById("recipe-search").value;
+
+            fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=" + encodeURIComponent(search))
+                .then(response => response.json())
+                .then(data => {
+                    const results = document.getElementById("search-results");
+
+                    results.innerHTML = "";
+
+                    if (data.meals !== null) {
+                        for (let i = 0; i < data.meals.length; i++) {
+                            const option = document.createElement("option");
+
+                            option.value = data.meals[i].idMeal;
+                            option.textContent = data.meals[i].strMeal;
+
+                            results.appendChild(option);
+                        }
+                    } else {
+                        const option = document.createElement("option");
+                        option.textContent = "No results found.";
+                        results.appendChild(option);
+                    }
+
+                });
+        }
+
+        document.getElementById("search-button")
+            .addEventListener("click", searchRecipes);
+
+        function selectRecipe() {
+            const results = document.getElementById("search-results");
+            const recipe = document.getElementById("recipe");
+
+            recipe.value = results.options[results.selectedIndex].text;
+        }
     </script>
 
 
